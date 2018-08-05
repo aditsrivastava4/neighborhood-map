@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Neighbourhood Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">sgwedfwef</div>
+            <div class="col-md-10">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <script type="text/javascript">
+        // Create a map variable
+        var map;
+        // Function to initialize the map within the map div
+        function initMap() {
+            $('#map').text('hola');
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 18.52043, lng: 73.856744 },
+                zoom: 8
+            });
+        }
+    </script>
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+    </script>
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous">
+    </script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key={{ apiKey }}&v=3&callback=initMap">
+    </script>
+</body>
+</html>
