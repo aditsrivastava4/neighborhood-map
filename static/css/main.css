@@ -1,7 +1,41 @@
-html, body { height: 100%; margin: 0; padding: 0; }
-.col-md-10 {
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: #A9A9A9;
+}
+#mainContainer {
+    background-color: #fff;
+    height: 100%;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.navbar-brand {
+    font-size: 2em;
+}
+.navbar-header {
+    float: none;
+    display: inline-block;
+}
+.navbar {
+    text-align: center;
+}
+.col-md-4 {
+    word-wrap: break-word;
+}
+.row {
+    padding: inherit;
+}
+
+
+/* Google Map */
+#map {
     height: 100%;
 }
-#map {
-    height: 90%;
+.maps {
+    border: 1px solid black;
+    padding: 0;
 }

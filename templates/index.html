@@ -13,22 +13,34 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2">sgwedfwef</div>
-            <div class="col-md-10">
-                <div id="map"></div>
+    <!-- Container -->
+    <div id="mainContainer" class="container">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">Neighbourhood Map</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">safasfasfasfwqbwrtberrneenhretent</div>
+                <div class="col-md-8 maps">
+                        <div id="map"></div>
+                </div>
             </div>
         </div>
     </div>
-    
-    
+
+
+
+    <!-- <div id="map"></div> -->
+    <!-- JS -->
     <script type="text/javascript">
-        // Create a map variable
         var map;
-        // Function to initialize the map within the map div
         function initMap() {
-            $('#map').text('hola');
+            console.log('hola')
             map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: 18.52043, lng: 73.856744 },
                 zoom: 8
