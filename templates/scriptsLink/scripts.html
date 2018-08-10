@@ -1,0 +1,20 @@
+
+<!-- JS -->
+<script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous">
+</script>
+<script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+
+<script src="{{ url_for('static', filename='js/maps/maps.js') }}"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?&libraries=places&key={{ apiKey }}&v=3&callback=initMap">
+</script>
+
