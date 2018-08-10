@@ -16,6 +16,7 @@ body {
 
 .navbar-brand {
     font-size: 2em;
+    color: white;
 }
 .navbar-header {
     float: none;
@@ -52,4 +53,11 @@ body {
     border: 1px solid black;
     padding: 0;
     height: 100%;
+}
+
+/* Sidebar */
+#zeroResult {
+    color: red;
+    text-align: center;
+    width: 100%;
 }
