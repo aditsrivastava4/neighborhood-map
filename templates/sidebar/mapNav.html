@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+{% block mapNav %}
+<h2>Filter</h2>
+
+
+<div class="form-horizontal">
+    <div class="form-group">
+        <div class="col-sm-9">
+            <input id="filterOption" class="form-control" value="" placeholder="Ex. Airport">
+            <label id="zeroResult" class="control-label"></label>
+        </div>
+        <div class="col-sm-3">
+            <input id="" type="button" class="form-control" value="Search" data-bind="click: searchPlace">
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

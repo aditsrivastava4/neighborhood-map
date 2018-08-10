@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template
 import json
 
 app = Flask(__name__)
@@ -9,7 +9,7 @@ def index():
 	with open('maps_API.json') as f:
 		data = json.load(f)
 	apiKey = data['apikey']
-	return render_template('index.html', apiKey = apiKey)
+	return render_template('sidebar/mapNav.html', apiKey = apiKey)
 
 
 
