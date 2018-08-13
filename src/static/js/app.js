@@ -1,10 +1,8 @@
 var viewModel = function() {
-    this.api = ko.observable('mainText()');
-    this.result = ko.observable('');
     this.searchPlace = function() {
         search(this);
     };
-
+    this.options = ko.observable( new typeOfOptions() );
 }
 
 ko.applyBindings(new viewModel());

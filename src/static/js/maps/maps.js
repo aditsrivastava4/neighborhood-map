@@ -1,16 +1,18 @@
 // Handle Google Maps API
-var map;
+let map;
+let searchPlace;
+
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 18.52043, lng: 73.856744 },
-        zoom: 14
+        zoom: 15
     });
     var autoComplete = new google.maps.places.Autocomplete(document.getElementById('filterOption'));
 }
 
 function search() {
     // Search for the place 
-    const searchPlace = document.getElementById('filterOption').value;
+    searchPlace = document.getElementById('filterOption').value;
     let getLatLng = new google.maps.Geocoder();
 
     getLatLng.geocode(
@@ -29,7 +31,9 @@ function search() {
                     $('#zeroResult').hide();
                 }
                 map.setCenter(responseData[0].geometry.location);
+                placeservice()
             }
         }
     );
 }
+
