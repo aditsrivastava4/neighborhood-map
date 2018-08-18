@@ -31,7 +31,17 @@ body {
 .row {
     padding: inherit;
 }
-
+#listContainer {
+    width: initial;
+    padding: 0;
+}
+.resultItem {
+    cursor: pointer;
+}
+.panel-body {
+    height: 250px;
+    overflow-y: scroll;
+}
 
 /* Google Map */
 
