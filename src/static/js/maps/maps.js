@@ -10,9 +10,10 @@ function initMap() {
     var autoComplete = new google.maps.places.Autocomplete(document.getElementById('filterOption'));
 }
 
-function search() {
+function search(self) {
     // Search for the place 
     searchPlace = document.getElementById('filterOption').value;
+    
     let getLatLng = new google.maps.Geocoder();
 
     getLatLng.geocode(
@@ -31,7 +32,7 @@ function search() {
                     $('#zeroResult').hide();
                 }
                 map.setCenter(responseData[0].geometry.location);
-                placeservice()
+                placeservice(self)
             }
         }
     );
