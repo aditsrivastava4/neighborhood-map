@@ -10,7 +10,7 @@ function viewModel() {
     ]);
     this.selectedFilter = ko.observable('Tourist Places');
 
-    this.result = ko.observableArray();
+    this.result = ko.observableArray(getLS_data());
 }
 
 
