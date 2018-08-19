@@ -11,15 +11,17 @@ function placeservice(self) {
             radius: '200'
         },
         function(results, status) {
-            results.forEach(function(x) {
-                console.log(x.name)
+            results.forEach(function(place) {
                 let result = {
-                    name: x.name,
-                    address: x.formatted_address,
-                    location: x.geometry.location
+                    name: place.name,
+                    address: place.formatted_address,
+                    location: place.geometry.location
                 };
                 self.result.push(result);
+                markers.push(result);
             });
+            createMarkers();
+            createLocalStorage();
         }
     );
 }
