@@ -1,6 +1,7 @@
 // Handle Google Maps API
 let map;
 let searchPlace;
+let markers = [];
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -32,9 +33,24 @@ function search(self) {
                     $('#zeroResult').hide();
                 }
                 map.setCenter(responseData[0].geometry.location);
-                placeservice(self)
+                placeservice(self);
             }
         }
     );
+}
+
+function createMarkers() {
+    markers.forEach(function(place) {
+        createMarker(place)
+    });
+}
+
+function createMarker(place) {
+    // Will create marker on location passed
+    let marker = new google.maps.Marker({
+        position: place.location,
+        map: map,
+        title: place.name
+    });
 }
 
