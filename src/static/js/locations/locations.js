@@ -3,6 +3,7 @@ function placeservice(self) {
     let option = self.selectedFilter();
     // emptying result ko.observableArray for every search
     self.result.removeAll();
+    placesList = [];
 
     placeService.textSearch(
         {
@@ -18,9 +19,9 @@ function placeservice(self) {
                     location: place.geometry.location
                 };
                 self.result.push(result);
-                markers.push(result);
+                placesList.push(result);
             });
-            createMarkers();
+            createMarkers(self);
             createLocalStorage();
         }
     );

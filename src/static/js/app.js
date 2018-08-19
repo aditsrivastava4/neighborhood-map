@@ -1,16 +1,28 @@
 function viewModel() {
-    this.searchPlace = function() {
-        search(this);
+    let self = this;
+    self.searchPlace = function() {
+        search(self);
     };
-    this.listOptions = ko.observableArray([
+    self.listOptions = ko.observableArray([
         'Tourist Places',
         'Pizza Places',
         'Cafe',
         'Library'
     ]);
-    this.selectedFilter = ko.observable('Tourist Places');
+    self.selectedFilter = ko.observable('Tourist Places');
 
-    this.result = ko.observableArray(getLS_data());
+    self.result = ko.observableArray(getLS_data());
+
+    self.favClick = ko.observable(false);
+
+    self.markFav = function() {
+        if(self.favClick()) {
+            self.favClick(false);
+        }
+        else {
+            self.favClick(true);
+        }
+    };
 }
 
 

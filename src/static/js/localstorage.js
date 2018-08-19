@@ -1,20 +1,20 @@
 function removeLS(place) {
     // let locations = JSON.parse(localStorage.getItem('locations'));
-    let indexOfPlace = markers.indexOf(place);
+    let indexOfPlace = placesList.indexOf(place);
     if(indexOfPlace > -1) {
-        markers.splice(indexOfPlace, 1);
+        placesList.splice(indexOfPlace, 1);
     }
 
     localStorage.setItem(
         'locations',
-        JSON.stringify(markers)
+        JSON.stringify(placesList)
     );
 }
 
 function createLocalStorage() {
     localStorage.setItem(
         'locations',
-        JSON.stringify(markers)
+        JSON.stringify(placesList)
     );
 }
 

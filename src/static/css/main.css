@@ -42,6 +42,9 @@ body {
     height: 250px;
     overflow-y: scroll;
 }
+.fav {
+    color: red;
+}
 
 /* Google Map */
 

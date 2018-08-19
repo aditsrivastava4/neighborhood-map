@@ -2,6 +2,7 @@
 let map;
 let searchPlace;
 let markers = [];
+let placesList = [];
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -14,7 +15,9 @@ function initMap() {
 function search(self) {
     // Search for the place 
     searchPlace = document.getElementById('filterOption').value;
-    
+    if(searchPlace != "") {
+        removeMarkers();
+    }
     let getLatLng = new google.maps.Geocoder();
 
     getLatLng.geocode(
@@ -39,10 +42,14 @@ function search(self) {
     );
 }
 
-function createMarkers() {
-    markers.forEach(function(place) {
-        createMarker(place)
+function createMarkers(self) {
+    let bounds = new google.maps.LatLngBounds();
+    self.result().forEach(function(place) {
+        let marker = createMarker(place);
+        bounds.extend(marker.position);
+        markers.push(marker);
     });
+    map.fitBounds(bounds);
 }
 
 function createMarker(place) {
@@ -52,5 +59,12 @@ function createMarker(place) {
         map: map,
         title: place.name
     });
+    return marker;
 }
 
+function removeMarkers() {
+    markers.forEach(function(marker) {
+        marker.setMap(null);
+    });
+    markers = [];
+}
