@@ -12,10 +12,12 @@ function viewModel() {
     self.selectedFilter = ko.observable('Tourist Places');
 
     self.result = ko.observableArray(getLS_data());
+    placesList = self.result();
 
     self.favClick = ko.observable(false);
 
-    self.markFav = function() {
+    self.markFav = function(element, event) {
+        console.log(element);
         if(self.favClick()) {
             self.favClick(false);
         }
@@ -23,6 +25,10 @@ function viewModel() {
             self.favClick(true);
         }
     };
+
+    this.remove = function(element) {
+        console.log(element);
+    }
 }
 
 

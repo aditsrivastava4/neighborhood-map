@@ -13,15 +13,29 @@ function placeservice(self) {
         },
         function(results, status) {
             results.forEach(function(place) {
-                let result = {
-                    name: place.name,
-                    address: place.formatted_address,
-                    location: place.geometry.location
-                };
-                self.result.push(result);
-                placesList.push(result);
+                if(typeof(place) != 'undefined') {
+                    let photoURL;
+                    if(place.hasOwnProperty('photos')) {
+                        photoURL = place.photos[0].getUrl({
+                            'maxWidth': 250,
+                            'maxHeight': 250
+                        });
+                    }
+                    else {
+                        photoURL = 'Photo_404';
+                    }
+                    
+                    let result = {
+                        name: place.name,
+                        address: place.formatted_address,
+                        location: place.geometry.location,
+                        photo: photoURL
+                    };
+                    self.result.push(result);
+                    placesList.push(result);
+                }
             });
-            createMarkers(self);
+            createMarkers();
             createLocalStorage();
         }
     );
