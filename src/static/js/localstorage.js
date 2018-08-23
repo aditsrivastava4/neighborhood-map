@@ -25,3 +25,19 @@ function getLS_data() {
     }
 }
 
+function getMapCenter() {
+    let mapCenter = localStorage.getItem('mapCenter');
+    if(mapCenter != null) {
+        return JSON.parse(mapCenter);
+    }
+    else {
+        return null;
+    }
+}
+
+function createMapCenter(mapCenter) {
+    localStorage.setItem(
+        'mapCenter',
+        JSON.stringify(mapCenter)
+    );
+}
