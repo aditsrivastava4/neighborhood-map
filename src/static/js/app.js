@@ -7,9 +7,25 @@ function viewModel() {
         'Tourist Places',
         'Pizza Places',
         'Cafe',
-        'Library'
+        'Library',
+        'Restaurants',
+        'Gym',
+        'Other'
     ]);
     self.selectedFilter = ko.observable('Tourist Places');
+    
+    self.other = ko.observable(false);
+    self.otherOption = function() {
+        if(self.selectedFilter() == 'Other'){
+            self.selectedFilter();
+            self.other(true);
+        }
+        else {
+            self.other(false);
+        }
+    };
+    
+    
 
     self.result = ko.observableArray(getLS_data());
     placesList = self.result();
@@ -26,8 +42,10 @@ function viewModel() {
         }
     };
 
-    this.remove = function(element) {
-        console.log(element);
+    self.remove = function() {
+        removeMarkers();
+        emptyLocalStorage();
+        self.result([]);
     }
 }
 

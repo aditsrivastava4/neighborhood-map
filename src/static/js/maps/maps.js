@@ -3,6 +3,7 @@ let map;
 let searchPlace;
 let markers = [];
 let placesList = [];
+let prevMarker = null;
 
 function initMap() {
     let mapCenter = getMapCenter();
@@ -23,10 +24,7 @@ function initMap() {
 function search(self) {
     // Search for the place 
     searchPlace = document.getElementById('filterOption').value;
-    if(searchPlace == "") {
-        removeMarkers();
-        return;
-    }
+    removeMarkers();
     let getLatLng = new google.maps.Geocoder();
 
     getLatLng.geocode(
@@ -58,11 +56,23 @@ function createMarkers() {
         let bounds = new google.maps.LatLngBounds();
         let infowindow = new google.maps.InfoWindow();
         placesList.forEach(function(place) {
-            let marker = createMarker(place);
+            let result = createMarker(place);
+            let marker = result.marker;
 
             marker.addListener('click', function() {
                 createInfoWindow(this, infowindow, place.photo);
             });
+            marker.addListener('mouseover',function() {
+                let icon = {
+                    url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                    scaledSize: new google.maps.Size(42,48)
+                };
+                marker.setIcon(icon);
+            })
+
+            marker.addListener('mouseout',function() {
+                marker.setIcon(result.icon);
+            })
 
             bounds.extend(marker.position);
             markers.push(marker);
@@ -73,12 +83,22 @@ function createMarkers() {
 
 function createMarker(place) {
     // Will create marker on location passed
+    let icon = {
+        url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+        scaledSize: new google.maps.Size(30,28)
+    };
+
     let marker = new google.maps.Marker({
         position: place.location,
         map: map,
-        title: place.name
+        title: place.name,
+        icon: icon,
+        animation: google.maps.Animation.DROP
     });
-    return marker;
+    return {
+        marker: marker,
+        icon: icon
+    };
 }
 
 function removeMarkers() {
@@ -90,13 +110,23 @@ function removeMarkers() {
 
 
 function createInfoWindow(marker, infowindow, photo) {
-    
-
     if(infowindow.marker != marker) {
+        if(prevMarker != null) {
+            prevMarker.setAnimation(null);
+        }
+
+        marker.setAnimation(google.maps.Animation.BOUNCE);
         let infoTemplate = "<h5>" + marker.title + "</h3>" +
             "<img src="+photo+" alt="+marker.title+">";
         infowindow.marker = marker;
         infowindow.setContent(infoTemplate);
         infowindow.open(map, marker);
+        prevMarker = marker;
+
+        infowindow.addListener('closeclick',function(){
+            marker.setAnimation(null);
+            prevMarker = null;
+            infowindow.marker = null;
+        });
     }
 }

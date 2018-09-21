@@ -41,3 +41,7 @@ function createMapCenter(mapCenter) {
         JSON.stringify(mapCenter)
     );
 }
+
+function emptyLocalStorage() {
+    localStorage.clear();
+}

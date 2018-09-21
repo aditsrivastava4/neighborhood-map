@@ -74,3 +74,9 @@ body {
     text-align: center;
     width: 100%;
 }
+
+
+/* Button */
+.myBtn {
+    margin-left: 60%;
+}

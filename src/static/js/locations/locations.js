@@ -35,8 +35,8 @@ function placeservice(self) {
                     placesList.push(result);
                 }
             });
-            createMarkers();
             createLocalStorage();
+            createMarkers();
         }
     );
 }

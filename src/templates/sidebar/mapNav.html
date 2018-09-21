@@ -19,9 +19,13 @@
             <label class="control-label" >Filter By:</label>
         </div>
         <div class="col-sm-10">
-            <!-- <div data-bind="with: options()"> -->
-                <select class="form-control" id="sel1" data-bind="options: listOptions, value: selectedFilter"></select>
-            <!-- </div> -->
+            <select
+                class="form-control"
+                id="sel1"
+                data-bind="options: listOptions, value: selectedFilter, event: {change: otherOption}"
+            >     
+            </select>
+            <input class="form-control" value="" placeholder="Ex. Airport" data-bind="visible: other, value: selectedFilter">
         </div>
     </div>
 
@@ -43,7 +47,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading">Locations</div>
+                <div class="panel-heading">
+                    Locations
+                    <button class="btn btn-default myBtn" data-bind="click: remove">Clear</button>
+                </div>
+
                 <div class="panel-body">
                     <ul class="list-group" data-bind="foreach: result">
                         <li class="list-group-item">
@@ -55,7 +63,7 @@
                                         data-bind="click: $parent.markFav, css: { 'fav': $parent.favClick }"
                                         class="glyphicon glyphicon-heart">
                                     </span>
-                                    <span data-bind="click: $parent.remove">Remove</span a   >
+                                    <span data-bind="">Remove</span a   >
                                 </div>
                             </div>
                         </li>
