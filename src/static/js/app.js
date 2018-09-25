@@ -1,9 +1,15 @@
 function viewModel() {
     let self = this;
     self.searchPlace = function() {
-        search(self);
+        if(self.selectedFilter() == 'Select' || (self.other() && self.otherFilter() == '')) {
+            alert('Select/Enter a filter');
+        }
+        else {
+            search(self);
+        }
     };
     self.listOptions = ko.observableArray([
+        'Select',
         'Tourist Places',
         'Pizza Places',
         'Cafe',
@@ -12,8 +18,9 @@ function viewModel() {
         'Gym',
         'Other'
     ]);
-    self.selectedFilter = ko.observable('Tourist Places');
-    
+    self.selectedFilter = ko.observable('Select');
+    self.otherFilter = ko.observable('');
+
     self.other = ko.observable(false);
     self.otherOption = function() {
         if(self.selectedFilter() == 'Other'){

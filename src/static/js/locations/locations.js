@@ -1,6 +1,9 @@
 function placeservice(self) {
     let placeService = new google.maps.places.PlacesService(map);
     let option = self.selectedFilter();
+    if(option == 'Other') {
+        option = self.otherFilter();
+    }
     // emptying result ko.observableArray for every search
     self.result.removeAll();
     placesList = [];
