@@ -33,14 +33,13 @@ function search(self) {
         },
         function(responseData, status) {
             if(status=='ZERO_RESULTS') {
-                if(!$('#zeroResult').is(':visible')) {
-                    $('#zeroResult').show();
+                if(!self.userError()) {
+                    self.userError(true);
                 }
-                $('#zeroResult').text('Place Not Found');
             }
             else if(status=='OK') {
-                if($('#zeroResult').is(':visible')) {
-                    $('#zeroResult').hide();
+                if(self.userError()) {
+                    self.userError(false);
                 }
                 let mapCenter = responseData[0].geometry.location;
                 map.setCenter(mapCenter);
@@ -60,7 +59,7 @@ function createMarkers() {
             let marker = result.marker;
 
             marker.addListener('click', function() {
-                createInfoWindow(this, infowindow, place.photo);
+                createInfoWindow(this, infowindow, place);
             });
             marker.addListener('mouseover',function() {
                 let icon = {
@@ -101,23 +100,19 @@ function createMarker(place) {
     };
 }
 
-function removeMarkers() {
-    markers.forEach(function(marker) {
-        marker.setMap(null);
-    });
-    markers = [];
-}
-
-
-function createInfoWindow(marker, infowindow, photo) {
+function createInfoWindow(marker, infowindow, place) {
     if(infowindow.marker != marker) {
         if(prevMarker != null) {
             prevMarker.setAnimation(null);
         }
 
         marker.setAnimation(google.maps.Animation.BOUNCE);
-        let infoTemplate = "<h5>" + marker.title + "</h3>" +
-            "<img src="+photo+" alt="+marker.title+">";
+        let infoTemplate = "<div class='infoWindow'><h5>" + marker.title + "</h3>" +
+            "<p>"+ place.rating +
+            "&nbsp<span style='color: red;' class='glyphicon glyphicon-star'></span></p>" +
+            "<p style='word-wrap: break-word;'>" + place.address + "</p>" +
+            "<img id='infoImg' src=" + place.photo + " alt=" + marker.title + "></div>";
+
         infowindow.marker = marker;
         infowindow.setContent(infoTemplate);
         infowindow.open(map, marker);
@@ -129,4 +124,11 @@ function createInfoWindow(marker, infowindow, photo) {
             infowindow.marker = null;
         });
     }
+}
+
+function removeMarkers() {
+    markers.forEach(function(marker) {
+        marker.setMap(null);
+    });
+    markers = [];
 }

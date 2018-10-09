@@ -54,6 +54,10 @@ function viewModel() {
         emptyLocalStorage();
         self.result([]);
     }
+
+    // usererror
+    self.userError = ko.observable(false);
+    self.userErrorMsg = ko.observable('Place Not Found');
 }
 
 

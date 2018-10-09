@@ -12,32 +12,38 @@ function placeservice(self) {
         {
             query: (option+' in '+searchPlace),
             location: map.center,
-            radius: '200'
+            radius: '1'
         },
         function(results, status) {
-            results.forEach(function(place) {
-                if(typeof(place) != 'undefined') {
-                    let photoURL;
-                    if(place.hasOwnProperty('photos')) {
-                        photoURL = place.photos[0].getUrl({
-                            'maxWidth': 250,
-                            'maxHeight': 250
-                        });
+            if(status == 'OK') {
+                results.forEach(function(place) {
+                    if(typeof(place) != 'undefined') {
+                        let photoURL;
+                        if(place.hasOwnProperty('photos')) {
+                            photoURL = place.photos[0].getUrl({
+                                'maxWidth': 250,
+                                'maxHeight': 250
+                            });
+                        }
+                        else {
+                            photoURL = 'Photo_404';
+                        }
+                        console.log(place);
+                        let result = {
+                            name: place.name,
+                            address: place.formatted_address,
+                            location: place.geometry.location,
+                            photo: photoURL,
+                            rating: place.rating
+                        };
+                        self.result.push(result);
+                        placesList.push(result);
                     }
-                    else {
-                        photoURL = 'Photo_404';
-                    }
-                    
-                    let result = {
-                        name: place.name,
-                        address: place.formatted_address,
-                        location: place.geometry.location,
-                        photo: photoURL
-                    };
-                    self.result.push(result);
-                    placesList.push(result);
-                }
-            });
+                });
+            }
+            else if(status == 'ZERO_RESULTS') {
+                alert('No Place Found');
+            }
             createLocalStorage();
             createMarkers();
         }

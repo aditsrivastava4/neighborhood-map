@@ -9,7 +9,7 @@ body {
 #mainContainer {
     background-color: #fff;
     /* height: 100%; */
-    height: inherit;
+    /* height: inherit; */
     padding-left: 0;
     padding-right: 0;
 }
@@ -79,4 +79,14 @@ body {
 /* Button */
 .myBtn {
     margin-left: 60%;
+}
+
+/* Info Window */
+.infoWindow {
+    width: 250px;
+    height: 250px;
+}
+#infoImg {
+    width: 250px;
+    height: 150px;
 }

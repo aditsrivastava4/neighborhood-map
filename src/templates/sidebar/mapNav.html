@@ -1,6 +1,6 @@
 {% extends 'index.html' %}
 {% block mapNav %}
-<h2>Filter</h2>
+<h2 style="text-align: center;">Filter</h2>
 
 
 <!-- filter form -->
@@ -25,7 +25,7 @@
                 data-bind="options: listOptions, value: selectedFilter, event: {change: otherOption}"
             >     
             </select>
-            <input class="form-control" placeholder="Filter" data-bind="visible: other, value: otherFilter">
+            <input class="form-control" placeholder="Your Filter" data-bind="visible: other, value: otherFilter">
         </div>
     </div>
 
@@ -36,7 +36,12 @@
         </div>
         <div class="col-sm-3"></div>
         <div class="col-sm-12">
-            <label id="zeroResult" class="control-label" style="display: none;"></label>
+            <label
+                id="zeroResult"
+                class="control-label"
+                style="display: none;"
+                data-bind="visible: userError, text: userErrorMsg">
+            </label>
         </div>
     </div>
 </div>
