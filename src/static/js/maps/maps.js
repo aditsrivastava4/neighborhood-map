@@ -76,6 +76,7 @@ function createMarkers() {
             bounds.extend(marker.position);
             markers.push(marker);
         });
+        console.log(markers)
         map.fitBounds(bounds);
     }
 }

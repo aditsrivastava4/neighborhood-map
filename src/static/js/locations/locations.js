@@ -28,7 +28,7 @@ function placeservice(self) {
                         else {
                             photoURL = 'Photo_404';
                         }
-                        console.log(place);
+                        // console.log(place);
                         let result = {
                             name: place.name,
                             address: place.formatted_address,
