@@ -4,6 +4,7 @@ let searchPlace;
 let markers = [];
 let placesList = [];
 let prevMarker = null;
+let infowindow = null;
 
 function initMap() {
     let mapCenter = getMapCenter();
@@ -53,7 +54,7 @@ function search(self) {
 function createMarkers() {
     if(placesList.length != 0) {
         let bounds = new google.maps.LatLngBounds();
-        let infowindow = new google.maps.InfoWindow();
+        infowindow = new google.maps.InfoWindow();
         placesList.forEach(function(place) {
             let result = createMarker(place);
             let marker = result.marker;
@@ -76,7 +77,6 @@ function createMarkers() {
             bounds.extend(marker.position);
             markers.push(marker);
         });
-        console.log(markers)
         map.fitBounds(bounds);
     }
 }
@@ -124,6 +124,7 @@ function createInfoWindow(marker, infowindow, place) {
             prevMarker = null;
             infowindow.marker = null;
         });
+        prev_infowindow = infowindow;
     }
 }
 

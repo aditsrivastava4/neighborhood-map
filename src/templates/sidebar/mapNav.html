@@ -60,7 +60,7 @@
                 <div class="panel-body">
                     <ul class="list-group" data-bind="foreach: result">
                         <li class="list-group-item">
-                            <div class="resultItem"><!-- data-bind="click: Todo"> -->
+                            <div class="resultItem" data-bind="click: $parent.listMarker">
                                 <h5><strong data-bind="text: $data.name"></strong></h5>   
                                 <p><strong>Address:</strong> <span data-bind="text: $data.address"></span></p>
                                 <div>
@@ -68,7 +68,7 @@
                                         data-bind="click: $parent.markFav, css: { 'fav': $parent.favClick }"
                                         class="glyphicon glyphicon-heart">
                                     </span>
-                                    <span data-bind="">Remove</span a   >
+                                    <span data-bind="">Remove</span>
                                 </div>
                             </div>
                         </li>

@@ -74,7 +74,7 @@ body {
 }
 #infoImg {
     width: 250px;
-    height: 150px;
+    height: 140px;
 }
 
 /* Google Map */
@@ -98,5 +98,14 @@ body {
     /* Button */
     .myBtn {
         margin-left: 54%;
+    }
+    /* Info Window */
+    .infoWindow {
+        width: 200px;
+        height: 200px;
+    }
+    #infoImg {
+        width: 200px;
+        height: 100px;
     }
 }

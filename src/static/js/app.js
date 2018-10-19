@@ -32,13 +32,11 @@ function viewModel() {
         }
     };
     
-    
-
     self.result = ko.observableArray(getLS_data());
     placesList = self.result();
 
+    // todo
     self.favClick = ko.observable(false);
-
     self.markFav = function(element, event) {
         console.log(element);
         if(self.favClick()) {
@@ -49,15 +47,35 @@ function viewModel() {
         }
     };
 
+    // Clean the list and the location
     self.remove = function() {
         removeMarkers();
         emptyLocalStorage();
         self.result([]);
     }
 
-    // usererror
+    // user error
     self.userError = ko.observable(false);
     self.userErrorMsg = ko.observable('Place Not Found');
+
+    // Open Info window if list item clicked.
+    self.listMarker = function(data, event) {
+        if(infowindow != null) {
+            infowindow.close();
+            infowindow = null;
+        }
+        infowindow = new google.maps.InfoWindow();
+        
+        for(let x = 0; x < markers.length; x++) {
+            if(markers[x].title==data.name) {createInfoWindow(
+                    markers[x],
+                    infowindow,
+                    data
+                );
+                break;
+            }
+        }
+    }
 }
 
 
