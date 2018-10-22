@@ -63,13 +63,22 @@
                             <div class="resultItem" data-bind="click: $parent.listMarker">
                                 <h5><strong data-bind="text: $data.name"></strong></h5>   
                                 <p><strong>Address:</strong> <span data-bind="text: $data.address"></span></p>
-                                <div>
-                                    <span
-                                        data-bind="click: $parent.markFav, css: { 'fav': $parent.favClick }"
-                                        class="glyphicon glyphicon-heart">
-                                    </span>
-                                    <span data-bind="">Remove</span>
-                                </div>
+                            </div>
+                            <div>
+                                <!-- <span
+                                    data-bind="click: $parent.markFav, css: { 'fav': $parent.favClick }"
+                                    class="glyphicon glyphicon-heart">
+                                </span> -->
+                                <span
+                                    data-bind="click: $parent.markFav, style: { color: $parent.favClick ? 'red' : 'black' }"
+                                    class="glyphicon glyphicon-heart">
+                                </span>
+                                <span
+                                    class="resultItem"
+                                    data-bind="click: $parent.removeMarker"
+                                    style="margin-left: 5%;">
+                                    Remove
+                                </span>
                             </div>
                         </li>
                     </ul>

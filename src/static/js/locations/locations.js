@@ -16,7 +16,7 @@ function placeservice(self) {
         },
         function(results, status) {
             if(status == 'OK') {
-                results.forEach(function(place) {
+                results.forEach(function(place, index) {
                     if(typeof(place) != 'undefined') {
                         let photoURL;
                         if(place.hasOwnProperty('photos')) {
@@ -34,8 +34,10 @@ function placeservice(self) {
                             address: place.formatted_address,
                             location: place.geometry.location,
                             photo: photoURL,
-                            rating: place.rating
+                            rating: place.rating,
+                            listId: 'listId'+ index
                         };
+                        // console.log(result);
                         self.result.push(result);
                         placesList.push(result);
                     }

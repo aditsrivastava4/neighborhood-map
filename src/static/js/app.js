@@ -36,9 +36,12 @@ function viewModel() {
     placesList = self.result();
 
     // todo
+    
+
     self.favClick = ko.observable(false);
     self.markFav = function(element, event) {
-        console.log(element);
+        // console.log(element);
+        console.log(event.currentTarget.id)
         if(self.favClick()) {
             self.favClick(false);
         }
@@ -46,6 +49,17 @@ function viewModel() {
             self.favClick(true);
         }
     };
+
+    // Remove a Marker
+    self.removeMarker = function(element) {
+        for(let x = 0; x < markers.length; x++) {
+            if(markers[x].title==element.name) {
+                markers.splice(x, 1);
+                break;
+            }
+        }
+    };
+
 
     // Clean the list and the location
     self.remove = function() {
@@ -67,7 +81,8 @@ function viewModel() {
         infowindow = new google.maps.InfoWindow();
         
         for(let x = 0; x < markers.length; x++) {
-            if(markers[x].title==data.name) {createInfoWindow(
+            if(markers[x].title==data.name) {
+                createInfoWindow(
                     markers[x],
                     infowindow,
                     data
