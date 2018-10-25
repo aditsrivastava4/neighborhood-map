@@ -69,10 +69,12 @@
                                     data-bind="click: $parent.markFav, css: { 'fav': $parent.favClick }"
                                     class="glyphicon glyphicon-heart">
                                 </span> -->
+                                
                                 <span
-                                    data-bind="click: $parent.markFav, style: { color: $parent.favClick ? 'red' : 'black' }"
+                                    data-bind="click: $parent.markFav, attr: { id: { '$data.listId': $data.fav} }"
                                     class="glyphicon glyphicon-heart">
                                 </span>
+
                                 <span
                                     class="resultItem"
                                     data-bind="click: $parent.removeMarker"

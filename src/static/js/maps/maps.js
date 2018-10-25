@@ -1,6 +1,6 @@
 // Handle Google Maps API
 let map;
-let searchPlace;
+let ll;
 let markers = [];
 let placesList = [];
 let prevMarker = null;
@@ -24,7 +24,7 @@ function initMap() {
 
 function search(self) {
     // Search for the place 
-    searchPlace = document.getElementById('filterOption').value;
+    let searchPlace = document.getElementById('filterOption').value;
     removeMarkers();
     let getLatLng = new google.maps.Geocoder();
 
@@ -43,6 +43,7 @@ function search(self) {
                     self.userError(false);
                 }
                 let mapCenter = responseData[0].geometry.location;
+                ll = mapCenter;
                 map.setCenter(mapCenter);
                 createMapCenter(mapCenter);
                 placeservice(self);

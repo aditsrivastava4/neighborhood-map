@@ -35,7 +35,8 @@ function placeservice(self) {
                             location: place.geometry.location,
                             photo: photoURL,
                             rating: place.rating,
-                            listId: 'listId'+ index
+                            listId: 'listId'+ index,
+                            fav: false
                         };
                         // console.log(result);
                         self.result.push(result);
