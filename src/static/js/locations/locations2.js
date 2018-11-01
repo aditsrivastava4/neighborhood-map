@@ -20,6 +20,8 @@ function placeservice(self) {
         success: function(results) {
             let venuesId = getVenueID(results);
             getVenueDetail(venuesId);
+            createLocalStorage();
+            createMarkers();
         }
     });
 
@@ -43,7 +45,10 @@ function getVenueDetail(venuesId) {
             data: data,
             success: function(result) {
                 console.log(result)
-                let a = filterVenueDetail(result.response.venue);
+                let venue = filterVenueDetail(result.response.venue);
+                console.log(venue)
+                self.result.push(venue);
+                placesList.push(venue);
             }
         })
     });
@@ -60,8 +65,13 @@ function filterVenueDetail(detail) {
         lng: detail.location.lng
     };
     venue['address'] = detail.location.formattedAddress.join();
-    venue['photo'] = detail.bestPhoto.prefix + '250x250' + detail.bestPhoto.suffix;
-    console.log(venue)
+    if(detail.photos.count != 0) {
+        venue['photo'] = detail.bestPhoto.prefix + '250x250' + detail.bestPhoto.suffix;
+    }
+    else {
+        venue['photo'] = 'Photo_404';
+    }
+    
     return venue;
 }
 
