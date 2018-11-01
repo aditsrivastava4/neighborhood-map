@@ -15,12 +15,6 @@ def index():
 def imgNotFound():
 	return redirect('https://www.lifewire.com/thmb/qLv10Pgd30kCy7OxXacwOWKxZ8M=/768x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/shutterstock_325494917-5a68d8403418c600190a3e1f.jpg')
 
-@app.route('/foursquare')
-def foursquare():
-	with open('foursquare.json') as key:
-		data = json.load(key)
-	foursquare_key = data
-	return jsonify(foursquare_key)
 
 if __name__ == '__main__':
 	app.debug = True
