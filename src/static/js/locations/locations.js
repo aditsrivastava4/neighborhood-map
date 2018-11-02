@@ -45,7 +45,7 @@ function getVenueDetail(venuesId, self, callback) {
             url: url,
             data: data,
             success: function(result, index) {
-                let venueDetail = filterVenueDetail(result.response.venue);
+                let venueDetail = filterVenueDetail(result.response.venue, arr_index);
                 self.result.push(venueDetail);
                 placesList.push(venueDetail);
                 
@@ -58,10 +58,11 @@ function getVenueDetail(venuesId, self, callback) {
     });
 }
 
-function filterVenueDetail(detail) {
+function filterVenueDetail(detail, index) {
     let venue = {
         name: detail.name,
-        fav: false
+        fav: false,
+        listId: 'listId' + index
     };
     if(detail.rating == undefined) {
         // if their is no rating for the place
@@ -93,8 +94,8 @@ function filterVenueDetail(detail) {
 function getClient() {
     // return the client
     return {
-        "client_id": "VKVYBMDLLA1HI0IA3UIFHYC2ACJYHOHKUG0CPNPDOYRBOYY3",
-        "client_secret": "TO3WZPDB54U0YBRNHUQWFRVGVNLBNXX3JHCKELPDASJLSVS5",
+        "client_id": "WWENGWM00XVXSHSG0S0DWF3GRSUY1W3QSH40Y5BQKZ1HIODR",
+        "client_secret": "UM5DHMNI1JHVJEURIZ2VYPKTUIJVP40TM34435RPXMMYBL5S",
         "v": "20180323"
     }
 }

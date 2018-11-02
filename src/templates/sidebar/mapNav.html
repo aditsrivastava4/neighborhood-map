@@ -65,14 +65,12 @@
                                 <p><strong>Address:</strong> <span data-bind="text: $data.address"></span></p>
                             </div>
                             <div>
-                                <!-- <span
-                                    data-bind="click: $parent.markFav, css: { 'fav': $parent.favClick }"
-                                    class="glyphicon glyphicon-heart">
-                                </span> -->
-                                
                                 <span
-                                    data-bind="click: $parent.markFav, attr: { id: { '$data.listId': $data.fav} }"
-                                    class="glyphicon glyphicon-heart">
+                                    data-bind="
+                                        click: $parent.markFav,
+                                        attr: { id: $data.listId },
+                                        style: { color: $data.fav ? 'red': 'black' }"
+                                    class="glyphicon glyphicon-heart resultItem">
                                 </span>
 
                                 <span

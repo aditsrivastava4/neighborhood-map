@@ -35,26 +35,29 @@ function viewModel() {
     self.result = ko.observableArray(getLS_data());
     placesList = self.result();
 
-    // todo
-    
-
-    self.favClick = ko.observable(false);
+    // mark a list item favourite
     self.markFav = function(element, event) {
-        // console.log(element);
-        console.log(event.currentTarget.id)
-        if(self.favClick()) {
-            self.favClick(false);
+        let listId = document.getElementById(event.currentTarget.id);
+
+        if(listId.style.color != 'red') {
+            listId.style.color = 'red';
+            element.fav = true;
         }
         else {
-            self.favClick(true);
+            listId.style.color = 'black';
+            element.fav = false;
         }
+        createLocalStorage();
     };
 
     // Remove a Marker
     self.removeMarker = function(element) {
         for(let x = 0; x < markers.length; x++) {
             if(markers[x].title==element.name) {
+                markers[x].setMap(null);
+                removeLS(element);
                 markers.splice(x, 1);
+                self.result.splice(x, 1);
                 break;
             }
         }

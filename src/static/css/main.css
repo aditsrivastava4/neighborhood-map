@@ -48,9 +48,6 @@ body {
     height: 250px;
     overflow-y: scroll;
 }
-[class*="listId"] {
-    color: red;
-}
 
 
 

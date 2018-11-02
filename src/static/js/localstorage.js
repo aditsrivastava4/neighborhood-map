@@ -11,12 +11,14 @@ function removeLS(place) {
     );
 }
 
-function createLocalStorage(callback) {
+function createLocalStorage(callback = null) {
     localStorage.setItem(
         'locations',
         JSON.stringify(placesList)
     );
-    callback();
+    if(callback != null) {
+        callback();
+    }
 }
 
 function getLS_data() {
