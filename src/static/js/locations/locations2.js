@@ -19,9 +19,11 @@ function placeservice(self) {
         data: foursquare_data,
         success: function(results) {
             let venuesId = getVenueID(results);
-            getVenueDetail(venuesId);
-            createLocalStorage();
-            createMarkers();
+            getVenueDetail(venuesId, self, function() {
+                createLocalStorage(function() {
+                    createMarkers();
+                });
+            });
         }
     });
 
@@ -36,19 +38,24 @@ function getVenueID(results) {
     return venueId;
 }
 
-function getVenueDetail(venuesId) {
-    venuesId.forEach(function(venue) {
+function getVenueDetail(venuesId, self, callback) {
+    venuesId.forEach(function(venue, arr_index) {
         let url = 'https://api.foursquare.com/v2/venues/' + venue;
         let data = getClient();
         $.ajax({
             url: url,
             data: data,
-            success: function(result) {
+            success: function(result, index) {
                 console.log(result)
-                let venue = filterVenueDetail(result.response.venue);
-                console.log(venue)
-                self.result.push(venue);
-                placesList.push(venue);
+                let venueDetail = filterVenueDetail(result.response.venue);
+                console.log(venueDetail)
+                self.result.push(venueDetail);
+                placesList.push(venueDetail);
+                
+                // callback to function createLocalStorage()
+                if(placesList.length == venuesId.length) {
+                    callback();
+                }
             }
         })
     });
@@ -57,13 +64,20 @@ function getVenueDetail(venuesId) {
 function filterVenueDetail(detail) {
     let venue = {
         name: detail.name,
-        rating: detail.rating,
         fav: false
     };
-    venue['latLng'] = {
-        lat: detail.location.lat,
-        lng: detail.location.lng
-    };
+    if(detail.rating == undefined) {
+        // if their is no rating for the place
+        venue['rating'] = 0.0;
+    }
+    else {
+        venue['rating'] = detail.rating;
+    }
+
+    venue['location'] = new google.maps.LatLng(
+        parseFloat(detail.location.lat),
+        parseFloat(detail.location.lng)
+    );
     venue['address'] = detail.location.formattedAddress.join();
     if(detail.photos.count != 0) {
         venue['photo'] = detail.bestPhoto.prefix + '250x250' + detail.bestPhoto.suffix;
@@ -71,48 +85,14 @@ function filterVenueDetail(detail) {
     else {
         venue['photo'] = 'Photo_404';
     }
-    
     return venue;
 }
-
-// {
-//     results.forEach(function(place, index) {
-//         if(typeof(place) != 'undefined') {
-//             let photoURL;
-//             if(place.hasOwnProperty('photos')) {
-//                 photoURL = place.photos[0].getUrl({
-//                     'maxWidth': 250,
-//                     'maxHeight': 250
-//                 });
-//             }
-//             else {
-//                 photoURL = 'Photo_404';
-//             }
-//             // console.log(place);
-//             let result = {
-//                 name: place.name,
-//                 address: place.formatted_address,
-//                 location: place.geometry.location,
-//                 photo: photoURL,
-//                 rating: place.rating,
-//                 listId: 'listId'+ index,
-//                 fav: false
-//             };
-//             // console.log(result);
-//             self.result.push(result);
-//             placesList.push(result);
-//         }
-//     });
-//         createLocalStorage();
-//         createMarkers();
-//     }
-// }
 
 function getClient() {
     // return the client
     return {
-        "client_id": "AU5IAQ2HUZSE3FUVXYZT4DHU2BYNO45B12BFULGNWWMG1UEE",
-        "client_secret": "ZHMESEJHZ005FZRJBLMU4S5MFTIIQKELMJOXUAM0I043NXR2",
+        "client_id": "UCYDAVG2AIIJYWLGD5BHIGK1AXQMNTFM0QXIMACI5JURUAL1",
+        "client_secret": "M0QXXUESLTJ0GN52DCVDSKJLVNMF20X1VSLCKC434T00Z1AP",
         "v": "20180323"
     }
 }
