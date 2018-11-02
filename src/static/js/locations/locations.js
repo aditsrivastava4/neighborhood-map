@@ -13,7 +13,6 @@ function placeservice(self) {
     let url = 'https://api.foursquare.com/v2/venues/search?';
     foursquare_data['query'] = option;
     foursquare_data['ll'] = getLatLng();
-    console.log(foursquare_data)
     $.ajax({
         url: url,
         data: foursquare_data,
@@ -46,9 +45,7 @@ function getVenueDetail(venuesId, self, callback) {
             url: url,
             data: data,
             success: function(result, index) {
-                console.log(result)
                 let venueDetail = filterVenueDetail(result.response.venue);
-                console.log(venueDetail)
                 self.result.push(venueDetail);
                 placesList.push(venueDetail);
                 
@@ -80,7 +77,12 @@ function filterVenueDetail(detail) {
     );
     venue['address'] = detail.location.formattedAddress.join();
     if(detail.photos.count != 0) {
-        venue['photo'] = detail.bestPhoto.prefix + '250x250' + detail.bestPhoto.suffix;
+        try {
+            venue['photo'] = detail.bestPhoto.prefix + '250x250' + detail.bestPhoto.suffix;
+        }
+        catch(err) {
+            venue['photo'] = 'Photo_404';
+        }
     }
     else {
         venue['photo'] = 'Photo_404';
@@ -91,8 +93,8 @@ function filterVenueDetail(detail) {
 function getClient() {
     // return the client
     return {
-        "client_id": "UCYDAVG2AIIJYWLGD5BHIGK1AXQMNTFM0QXIMACI5JURUAL1",
-        "client_secret": "M0QXXUESLTJ0GN52DCVDSKJLVNMF20X1VSLCKC434T00Z1AP",
+        "client_id": "VKVYBMDLLA1HI0IA3UIFHYC2ACJYHOHKUG0CPNPDOYRBOYY3",
+        "client_secret": "TO3WZPDB54U0YBRNHUQWFRVGVNLBNXX3JHCKELPDASJLSVS5",
         "v": "20180323"
     }
 }
