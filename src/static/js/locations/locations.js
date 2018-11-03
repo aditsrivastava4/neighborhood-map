@@ -3,10 +3,9 @@ function placeservice(self) {
     if(option == 'Other') {
         option = self.otherFilter();
     }
-    // emptying result ko.observableArray for every search
+    // emptying self.result for every search
     self.result.removeAll();
     placesList = [];
-    // let results;
 
     let foursquare_data = getClient();
     
@@ -72,13 +71,18 @@ function filterVenueDetail(detail, index) {
         venue['rating'] = detail.rating;
     }
 
+    // converting lat lng to a LatLng object
     venue['location'] = new google.maps.LatLng(
         parseFloat(detail.location.lat),
         parseFloat(detail.location.lng)
     );
     venue['address'] = detail.location.formattedAddress.join();
+
+    // getting the photo url
     if(detail.photos.count != 0) {
         try {
+            /* try catch for rare cases in which count is not 0
+            * and their is no link */
             venue['photo'] = detail.bestPhoto.prefix + '250x250' + detail.bestPhoto.suffix;
         }
         catch(err) {
