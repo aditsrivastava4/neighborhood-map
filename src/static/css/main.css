@@ -8,8 +8,6 @@ body {
 }
 #mainContainer {
     background-color: #fff;
-    /* height: 100%; */
-    /* height: inherit; */
     padding-left: 0;
     padding-right: 0;
 }
@@ -82,25 +80,60 @@ body {
 
 /* Google Map */
 
-@media (min-width: 992px) {
+@media screen and (min-width: 992px) {
     #map {
         /* height: 100%; */
         height: 500px;
     }
 }
 
-@media (max-width: 992px) {
+@media screen and (max-width: 359px) {
+    /* Button */
+    .myBtn {
+        margin-left: 45%;
+    }
+}
+
+@media screen and (min-width: 360px) and (max-width: 375px) {
+    /* Button */
+    .myBtn {
+        margin-left: 54%;
+    }
+}
+
+@media screen and (min-width: 568px) and (max-width: 631px) {
+    /* Button */
+    .myBtn {
+        margin-left: 74%;
+    }
+}
+@media screen and (min-width: 632px) and (max-width: 708px) {
+    /* Button */
+    .myBtn {
+        margin-left: 77%;
+    }
+}
+@media screen and (min-width: 709px) and (max-width: 991px) {
+    /* Button */
+    .myBtn {
+        margin-left: 80%;
+    }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1024px) {
+    /* Button */
+    .myBtn {
+        margin-left: 50%;
+    }
+}
+
+@media screen and (max-width: 992px) {
     #map {
         /* height: 100%; */
         height: 400px;
     }
     #mapPadding {
         padding-bottom: 5%;
-    }
-
-    /* Button */
-    .myBtn {
-        margin-left: 54%;
     }
     /* Info Window */
     .infoWindow {
