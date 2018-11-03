@@ -113,7 +113,8 @@ function createInfoWindow(marker, infowindow, place) {
             "<p>"+ place.rating +
             "&nbsp<span style='color: red;' class='glyphicon glyphicon-star'></span></p>" +
             "<p style='word-wrap: break-word;'>" + place.address + "</p>" +
-            "<img id='infoImg' src=" + place.photo + " alt=" + marker.title + "></div>";
+            "<img id='infoImg' src=" + place.photo + " alt=" + marker.title + ">" +
+            "</div><footer><strong>Source</strong>: Foursquare API</footer>";
 
         infowindow.marker = marker;
         infowindow.setContent(infoTemplate);
