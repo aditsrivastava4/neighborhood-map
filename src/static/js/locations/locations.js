@@ -1,6 +1,10 @@
 /**
- * @description Searching Venues for the location wrt to the option 
- * @param {*} self 
+ * @description locations.js handle's Foursquare API
+ */
+
+/**
+ * @description Searching Venues for the location wrt to the option
+ * @param {*} self
  */
 function placeservice(self) {
     // for pre-defined filter
@@ -14,7 +18,7 @@ function placeservice(self) {
     placesList = [];
 
     let foursquare_data = getClient();
-    
+
     let url = 'https://api.foursquare.com/v2/venues/search?';
     foursquare_data['query'] = option;
     foursquare_data['ll'] = getLatLng();
@@ -69,9 +73,9 @@ function getVenueID(results) {
 /**
  * @description Getting venue detail from foursquare API
  * @callback createLocalStorage
- * @param {string[]} venuesId 
- * @param {*} self 
- * @param {createLocalStorage} callback 
+ * @param {string[]} venuesId
+ * @param {*} self
+ * @param {createLocalStorage} callback
  */
 function getVenueDetail(venuesId, self, callback) {
     venuesId.forEach(function(venue, arr_index) {
@@ -84,7 +88,7 @@ function getVenueDetail(venuesId, self, callback) {
                 let venueDetail = filterVenueDetail(result.response.venue, arr_index);
                 self.result.push(venueDetail);
                 placesList.push(venueDetail);
-                
+
                 // callback to function createLocalStorage()
                 if(placesList.length == venuesId.length) {
                     callback();
@@ -140,7 +144,7 @@ function filterVenueDetail(detail, index) {
     // getting the photo url
     if(detail.photos.count != 0) {
         try {
-            /** 
+            /**
             * try catch for rare cases in which count is not 0
             * and their is no link
             */
@@ -163,8 +167,8 @@ function filterVenueDetail(detail, index) {
 function getClient() {
     // return the client
     return {
-        "client_id": "WWENGWM00XVXSHSG0S0DWF3GRSUY1W3QSH40Y5BQKZ1HIODR",
-        "client_secret": "UM5DHMNI1JHVJEURIZ2VYPKTUIJVP40TM34435RPXMMYBL5S",
+        "client_id": "UCYDAVG2AIIJYWLGD5BHIGK1AXQMNTFM0QXIMACI5JURUAL1",
+        "client_secret": "M0QXXUESLTJ0GN52DCVDSKJLVNMF20X1VSLCKC434T00Z1AP",
         "v": "20180323"
     }
 }

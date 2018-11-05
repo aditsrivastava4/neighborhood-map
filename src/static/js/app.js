@@ -1,5 +1,6 @@
 function viewModel() {
     let self = this;
+    
     self.searchPlace = function() {
         if(self.selectedFilter() == 'Select' || (self.other() && self.otherFilter() == '')) {
             alert('Select/Enter a filter');
@@ -8,6 +9,8 @@ function viewModel() {
             search(self);
         }
     };
+
+    // Pre-defined Filter Options
     self.listOptions = ko.observableArray([
         'Select',
         'Tourist Places',
@@ -19,12 +22,12 @@ function viewModel() {
         'Other'
     ]);
     self.selectedFilter = ko.observable('Select');
+    // User Defined Filter Option
     self.otherFilter = ko.observable('');
 
     self.other = ko.observable(false);
     self.otherOption = function() {
         if(self.selectedFilter() == 'Other'){
-            self.selectedFilter();
             self.other(true);
         }
         else {
@@ -32,6 +35,7 @@ function viewModel() {
         }
     };
     
+    // Store the search result
     self.result = ko.observableArray(getLS_data());
     placesList = self.result();
 
@@ -64,7 +68,7 @@ function viewModel() {
     };
 
 
-    // Clean the list and the location
+    // Empty the location list and markers
     self.remove = function() {
         removeMarkers();
         emptyLocalStorage();
@@ -76,7 +80,7 @@ function viewModel() {
     self.userError = ko.observable(false);
     self.userErrorMsg = ko.observable('No Result Found');
 
-    // Open Info window if list item clicked.
+    // Open InfoWindow if list item clicked.
     self.listMarker = function(data, event) {
         if(infowindow != null) {
             infowindow.close();
@@ -96,7 +100,6 @@ function viewModel() {
         }
     }
 }
-
 
 
 ko.applyBindings(new viewModel());

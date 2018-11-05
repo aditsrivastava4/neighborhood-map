@@ -1,12 +1,20 @@
-// Handle Google Maps API
-let map;
-let ll;
-let markers = [];
-let placesList = [];
+/**
+ * @description maps.js Handle's Google Maps API
+ */
+
+let map; // store the map object
+let ll; // store map center
+let markers = []; // store markers
+let placesList = []; // store list of places
+// for infoWindow related operation
 let prevMarker = null;
 let infowindow = null;
 
+/**
+ * @description initialize the google map
+ */
 function initMap() {
+    // get map center from localStorage else it returns null
     let mapCenter = getMapCenter();
     if(mapCenter == null) {
         mapCenter = {
@@ -18,13 +26,15 @@ function initMap() {
         center: mapCenter,
         zoom: 15
     });
+    // create markers if their is any data in localStorage
     createMarkers();
+    // autoComplete field for Place
     let autoComplete = new google.maps.places.Autocomplete(document.getElementById('filterOption'));
 }
 
 /**
  * @description Search the location by geocoding
- * @param {*} self 
+ * @param {*} self
  */
 function search(self) {
     // get the place name from autocomplete field
@@ -39,6 +49,7 @@ function search(self) {
         },
         function(responseData, status) {
             if(status == 'ZERO_RESULTS') {
+                // if ZERO_RESULTS show No Result Found
                 if(!self.userError()) {
                     self.userError(true);
                 }
@@ -73,7 +84,7 @@ function createMarkers() {
                 createInfoWindow(this, infowindow, place);
             });
             marker.addListener('mouseover',function() {
-                // adding event Listener to change marker icon on mouseover 
+                // adding event Listener to change marker icon on mouseover
                 let icon = {
                     url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
                     scaledSize: new google.maps.Size(42,48)
