@@ -1,7 +1,7 @@
 {% extends 'index.html' %}
 {% block mapNav %}
-<h2 style="text-align: center;">Filter</h2>
 
+<h2 style="text-align: center;">Filter</h2>
 
 <!-- filter form -->
 
@@ -22,8 +22,7 @@
             <select
                 class="form-control"
                 id="sel1"
-                data-bind="options: listOptions, value: selectedFilter, event: {change: otherOption}"
-            >     
+                data-bind="options: listOptions, value: selectedFilter, event: {change: otherOption}">
             </select>
             <input class="form-control" placeholder="Your Filter" data-bind="visible: other, value: otherFilter">
         </div>
@@ -39,7 +38,6 @@
             <label
                 id="zeroResult"
                 class="control-label"
-                style="display: none;"
                 data-bind="visible: userError, text: userErrorMsg">
             </label>
         </div>
@@ -61,10 +59,11 @@
                     <ul class="list-group" data-bind="foreach: result">
                         <li class="list-group-item">
                             <div class="resultItem" data-bind="click: $parent.listMarker">
-                                <h5><strong data-bind="text: $data.name"></strong></h5>   
+                                <h5><strong data-bind="text: $data.name"></strong></h5>
                                 <p><strong>Address:</strong> <span data-bind="text: $data.address"></span></p>
                             </div>
                             <div>
+                                <!-- Favourite icon -->
                                 <span
                                     data-bind="
                                         click: $parent.markFav,
@@ -72,12 +71,11 @@
                                         style: { color: $data.fav ? 'red': 'black' }"
                                     class="glyphicon glyphicon-heart resultItem">
                                 </span>
-
+                                <!-- Remove Icon -->
                                 <span
-                                    class="resultItem"
+                                    class="glyphicon glyphicon-trash resultItem"
                                     data-bind="click: $parent.removeMarker"
                                     style="margin-left: 5%;">
-                                    Remove
                                 </span>
                             </div>
                         </li>
