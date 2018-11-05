@@ -68,12 +68,13 @@ function viewModel() {
     self.remove = function() {
         removeMarkers();
         emptyLocalStorage();
+        placesList = [];
         self.result([]);
     }
 
     // user error
     self.userError = ko.observable(false);
-    self.userErrorMsg = ko.observable('Place Not Found');
+    self.userErrorMsg = ko.observable('No Result Found');
 
     // Open Info window if list item clicked.
     self.listMarker = function(data, event) {
