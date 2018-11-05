@@ -52,3 +52,7 @@ It manages read/write operations related to localStorage.
 
 * Open terminal and cd to ```~/neighbourhood-map/src```.
 * Run the command ```python3 views.py```.
+
+## Acknowledgment
+
+* [StackoverFlow](http://stackoverflow.com)
