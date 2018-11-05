@@ -1,9 +1,15 @@
+/**
+ * @description Searching Venues for the location wrt to the option 
+ * @param {*} self 
+ */
 function placeservice(self) {
+    // for pre-defined filter
     let option = self.selectedFilter();
     if(option == 'Other') {
+        // for user's custom filter
         option = self.otherFilter();
     }
-    // emptying self.result for every search
+    // emptying self.result and placesList for every search
     self.result.removeAll();
     placesList = [];
 
@@ -12,21 +18,45 @@ function placeservice(self) {
     let url = 'https://api.foursquare.com/v2/venues/search?';
     foursquare_data['query'] = option;
     foursquare_data['ll'] = getLatLng();
+
+    // request to get list of venues
     $.ajax({
         url: url,
         data: foursquare_data,
         success: function(results) {
-            let venuesId = getVenueID(results);
-            getVenueDetail(venuesId, self, function() {
-                createLocalStorage(function() {
-                    createMarkers();
+            if(results.response.venues.length != 0) {
+                if(self.userError()) {
+                    self.userError(false);
+                }
+                let venuesId = getVenueID(results);
+                getVenueDetail(venuesId, self, function() {
+                    // callback to store data in localstorage
+                    createLocalStorage(function() {
+                        // callback to create markers for the result locations
+                        createMarkers();
+                    });
                 });
-            });
+            } else {
+                // if no result
+                self.userError(true);
+            }
+        },
+        error: function(xhr) {
+            if(xhr.status == 429) {
+                alert('Foursquare API Request Quota Exceeded');
+            } else {
+                alert('Internal Server Error');
+            }
         }
     });
 
 }
 
+/**
+ * @description Extracting the venue ID
+ * @param {Object[]} results - Result from foursquare search venue API
+ * @returns {string[]} list of venue ID
+ */
 function getVenueID(results) {
     results = results.response.venues;
     let venueId = [];
@@ -36,6 +66,13 @@ function getVenueID(results) {
     return venueId;
 }
 
+/**
+ * @description Getting venue detail from foursquare API
+ * @callback createLocalStorage
+ * @param {string[]} venuesId 
+ * @param {*} self 
+ * @param {createLocalStorage} callback 
+ */
 function getVenueDetail(venuesId, self, callback) {
     venuesId.forEach(function(venue, arr_index) {
         let url = 'https://api.foursquare.com/v2/venues/' + venue;
@@ -52,11 +89,33 @@ function getVenueDetail(venuesId, self, callback) {
                 if(placesList.length == venuesId.length) {
                     callback();
                 }
+            },
+            error: function(xhr) {
+                if(xhr.status == 429) {
+                    if(placesList.length == 0 && arr_index == (venuesId.length - 1)) {
+                        alert('Foursquare API Request Quota Exceeded');
+                    } else {
+                        /**
+                        * if their are few results before API calls limit is reached
+                        * do a callback to function createLocalStorage()
+                        */
+                        callback();
+                    }
+                } else {
+                    if(arr_index == (venuesId.length - 1)) {
+                        alert('Internal Server Error');
+                    }
+                }
             }
-        })
+        });
     });
 }
 
+/**
+ * @description Filtering the venue detail result
+ * @param {Object} detail - details of the the place
+ * @param {number} index - Index of the array
+ */
 function filterVenueDetail(detail, index) {
     let venue = {
         name: detail.name,
@@ -81,8 +140,10 @@ function filterVenueDetail(detail, index) {
     // getting the photo url
     if(detail.photos.count != 0) {
         try {
-            /* try catch for rare cases in which count is not 0
-            * and their is no link */
+            /** 
+            * try catch for rare cases in which count is not 0
+            * and their is no link
+            */
             venue['photo'] = detail.bestPhoto.prefix + '250x250' + detail.bestPhoto.suffix;
         }
         catch(err) {
@@ -92,9 +153,13 @@ function filterVenueDetail(detail, index) {
     else {
         venue['photo'] = 'Photo_404';
     }
+    // Photo_404 provides a link to 404 image
     return venue;
 }
 
+/**
+ * @returns {Object} foursquare client detail
+ */
 function getClient() {
     // return the client
     return {
@@ -104,6 +169,9 @@ function getClient() {
     }
 }
 
+/**
+ * @returns {string} lat and lng in string format
+ */
 function getLatLng() {
     return ll.lat() + ',' + ll.lng();
 }
