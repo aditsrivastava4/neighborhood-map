@@ -35,6 +35,8 @@ It manages read/write operations related to localStorage.
 1. Activate [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/tutorial) and [Geocoding API](https://developers.google.com/maps/documentation/geocoding/intro)
 2. Get Google Maps [API key](https://developers.google.com/maps/documentation/javascript/get-api-key).
 3. Create a **maps_API.json** file to store Google Maps API key.
-    {
-        "apikey": "{Your Google Maps API Key}"
-    }
+
+
+ 		{
+ 		"apikey": "{Your Google Maps API Key}"
+ 		}
