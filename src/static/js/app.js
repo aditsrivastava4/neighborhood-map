@@ -1,5 +1,6 @@
 function viewModel() {
     self = this;
+    // if clicked on the search
     self.searchPlace = function() {
         if(self.selectedFilter() == 'Select' || (self.other() && self.otherFilter() == '')) {
             alert('Select/Enter a filter');
