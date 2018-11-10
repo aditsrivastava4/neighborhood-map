@@ -4,9 +4,8 @@
 
 /**
  * @description Searching Venues for the location wrt to the option
- * @param {*} self
  */
-function placeservice(self) {
+function placeservice() {
     // for pre-defined filter
     let option = self.selectedFilter();
     if(option == 'Other') {
@@ -33,7 +32,7 @@ function placeservice(self) {
                     self.userError(false);
                 }
                 let venuesId = getVenueID(results);
-                getVenueDetail(venuesId, self, function() {
+                getVenueDetail(venuesId, function() {
                     // callback to store data in localstorage
                     createLocalStorage(function() {
                         // callback to create markers for the result locations
@@ -74,10 +73,9 @@ function getVenueID(results) {
  * @description Getting venue detail from foursquare API
  * @callback createLocalStorage
  * @param {string[]} venuesId
- * @param {*} self
  * @param {createLocalStorage} callback
  */
-function getVenueDetail(venuesId, self, callback) {
+function getVenueDetail(venuesId, callback) {
     venuesId.forEach(function(venue, arr_index) {
         let url = 'https://api.foursquare.com/v2/venues/' + venue;
         let data = getClient();
@@ -167,8 +165,8 @@ function filterVenueDetail(detail, index) {
 function getClient() {
     // return the client
     return {
-        "client_id": "UCYDAVG2AIIJYWLGD5BHIGK1AXQMNTFM0QXIMACI5JURUAL1",
-        "client_secret": "M0QXXUESLTJ0GN52DCVDSKJLVNMF20X1VSLCKC434T00Z1AP",
+        "client_id": "0WGUGR5Z3J2BU4LS53JX2T5C003D1A2S3MM1LYWQYDQIQPHN",
+        "client_secret": "QFDKBNHSD2Q00C0GTHYZHUOAEHYPLDXTQ1FSZJQR2V2FSYKG",
         "v": "20180323"
     }
 }
@@ -177,5 +175,5 @@ function getClient() {
  * @returns {string} lat and lng in string format
  */
 function getLatLng() {
-    return ll.lat() + ',' + ll.lng();
+    return map.center.lat() + ',' + map.center.lng();
 }

@@ -4,7 +4,7 @@
 
 /**
  * @description Remove a place from localStorage
- * @param {Object} place - place to remove from localStorage 
+ * @param {Object} place - place to remove from localStorage
  */
 function removeLS(place) {
     let indexOfPlace = placesList.indexOf(place);
@@ -39,7 +39,7 @@ function createLocalStorage(callback = null) {
  */
 function getLS_data() {
     let locations = localStorage.getItem('locations');
-    if(locations != null) {
+    if(locations != null && locations != undefined) {
         return JSON.parse(locations);
     }
 }
@@ -60,7 +60,7 @@ function getMapCenter() {
 
 /**
  * @description Store map center in localStorage
- * @param {Object} mapCenter 
+ * @param {Object} mapCenter
  */
 function createMapCenter(mapCenter) {
     localStorage.setItem(

@@ -3,12 +3,13 @@
  */
 
 let map; // store the map object
-let ll; // store map center
 let markers = []; // store markers
 let placesList = []; // store list of places
+
 // for infoWindow related operation
 let prevMarker = null;
 let infowindow = null;
+let self;
 
 /**
  * @description initialize the google map
@@ -17,36 +18,49 @@ function initMap() {
     // get map center from localStorage else it returns null
     let mapCenter = getMapCenter();
     if(mapCenter == null) {
-        mapCenter = {
-            lat: 18.52043,
-            lng: 73.856744
-        };
+        mapCenter = new google.maps.LatLng(
+            parseFloat(18.52043),
+            parseFloat(73.856744)
+        );
     }
     map = new google.maps.Map(document.getElementById('map'), {
         center: mapCenter,
         zoom: 15
     });
-    // create markers if their is any data in localStorage
-    createMarkers();
+
     // autoComplete field for Place
     let autoComplete = new google.maps.places.Autocomplete(document.getElementById('filterOption'));
+    if(placesList.length == 0) {
+        init();
+    } else {
+        // create markers if their is any data in localStorage
+        createMarkers();
+    }
+}
+
+/**
+ * @description Initial Result
+ */
+function init() {
+    if(getLS_data() == undefined) {
+        placeservice(self);
+    }
 }
 
 /**
  * @description Search the location by geocoding
- * @param {*} self
  */
-function search(self) {
+function search() {
     // get the place name from autocomplete field
-    let searchPlace = document.getElementById('filterOption').value;
+    let searchPlace = {
+        address: document.getElementById('filterOption').value
+    };
     // remove all previous markers
     removeMarkers();
     let getLatLng = new google.maps.Geocoder();
 
     getLatLng.geocode(
-        {
-            address: searchPlace
-        },
+        searchPlace,
         function(responseData, status) {
             if(status == 'ZERO_RESULTS') {
                 // if ZERO_RESULTS show No Result Found
@@ -59,10 +73,9 @@ function search(self) {
                     self.userError(false);
                 }
                 let mapCenter = responseData[0].geometry.location;
-                ll = mapCenter;
                 map.setCenter(mapCenter);
                 createMapCenter(mapCenter);
-                placeservice(self);
+                placeservice();
             }
         }
     );
@@ -153,8 +166,8 @@ function createInfoWindow(marker, infowindow, place) {
             "<p>"+ place.rating +
             "&nbsp<span style='color: red;' class='glyphicon glyphicon-star'></span></p>" +
             "<p style='word-wrap: break-word;'>" + place.address + "</p>" +
-            "<img id='infoImg' src=" + place.photo + " alt=" + marker.title + "></div>" +
-            "<footer><strong>Source</strong>: Foursquare API</footer>";
+            "<img id='infoImg' src=" + place.photo + " alt=" + marker.title + ">" +
+            "<footer><strong>Source</strong>: Foursquare API</footer></div>";
 
         infowindow.marker = marker;
         infowindow.setContent(infoTemplate);

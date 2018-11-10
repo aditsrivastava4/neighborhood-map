@@ -1,6 +1,5 @@
 function viewModel() {
-    let self = this;
-    
+    self = this;
     self.searchPlace = function() {
         if(self.selectedFilter() == 'Select' || (self.other() && self.otherFilter() == '')) {
             alert('Select/Enter a filter');
@@ -12,7 +11,6 @@ function viewModel() {
 
     // Pre-defined Filter Options
     self.listOptions = ko.observableArray([
-        'Select',
         'Tourist Places',
         'Pizza Places',
         'Cafe',
@@ -21,7 +19,7 @@ function viewModel() {
         'Gym',
         'Other'
     ]);
-    self.selectedFilter = ko.observable('Select');
+    self.selectedFilter = ko.observable('Tourist Places');
     // User Defined Filter Option
     self.otherFilter = ko.observable('');
 
@@ -34,7 +32,7 @@ function viewModel() {
             self.other(false);
         }
     };
-    
+
     // Store the search result
     self.result = ko.observableArray(getLS_data());
     placesList = self.result();
@@ -67,7 +65,6 @@ function viewModel() {
         }
     };
 
-
     // Empty the location list and markers
     self.remove = function() {
         removeMarkers();
@@ -87,7 +84,7 @@ function viewModel() {
             infowindow = null;
         }
         infowindow = new google.maps.InfoWindow();
-        
+
         for(let x = 0; x < markers.length; x++) {
             if(markers[x].title==data.name) {
                 createInfoWindow(
