@@ -165,8 +165,8 @@ function filterVenueDetail(detail, index) {
 function getClient() {
     // return the client
     return {
-        "client_id": "0WGUGR5Z3J2BU4LS53JX2T5C003D1A2S3MM1LYWQYDQIQPHN",
-        "client_secret": "QFDKBNHSD2Q00C0GTHYZHUOAEHYPLDXTQ1FSZJQR2V2FSYKG",
+        "client_id": "VKVYBMDLLA1HI0IA3UIFHYC2ACJYHOHKUG0CPNPDOYRBOYY3",
+        "client_secret": "TO3WZPDB54U0YBRNHUQWFRVGVNLBNXX3JHCKELPDASJLSVS5",
         "v": "20180323"
     }
 }

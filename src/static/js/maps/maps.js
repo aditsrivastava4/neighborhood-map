@@ -42,7 +42,7 @@ function initMap() {
  * @description Initial Result
  */
 function init() {
-    if(getLS_data() == undefined) {
+    if(getLS_data() == undefined || getLS_data().length == 0) {
         placeservice(self);
     }
 }
