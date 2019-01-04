@@ -1,6 +1,6 @@
 # Neighborhood Map Project
 
-This Project is to create a single page website with a map and option to search for a places and filter it as the user require.
+This Project is to create a single page web app with a map and option to search for a places and filter it as the user require.
 
 ## Python Module
 
