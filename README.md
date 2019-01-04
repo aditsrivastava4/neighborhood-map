@@ -1,4 +1,4 @@
-# Neighbourhood Map Project
+# Neighborhood Map Project
 
 This Project is to create a single page website with a map and option to search for a places and filter it as the user require.
 
