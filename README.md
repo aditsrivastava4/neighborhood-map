@@ -17,7 +17,7 @@ A basic Flask Server which provides Google maps API key and a redirect to a imag
 
 
 ### 1. app.js
-It is a ViewModal created with [Knockout.js](https://knockoutjs.com) Library.
+It is a ViewModel created with [Knockout.js](https://knockoutjs.com) Library.
 It handles all the dynamic changes to the UI.
 
 ### 2. maps.js
